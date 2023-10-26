@@ -13,7 +13,9 @@ module.exports = {
   plugins: ['react', 'react-refresh', 'eslint-plugin-prettier'],
   rules: {
     'comma-dangle': 'off',
+    'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',
+    'import/no-unresolved': 'off',
     'import/prefer-default-export': 'off',
     'import/react-in-jsx-scope': 'off',
     'jsx-quotes': ['error', 'prefer-single'],

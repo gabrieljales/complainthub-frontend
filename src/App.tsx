@@ -1,7 +1,8 @@
-import { Text } from '@chakra-ui/react';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './routes/router';
 
 function App() {
-  return <Text>ComplaintHub</Text>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;

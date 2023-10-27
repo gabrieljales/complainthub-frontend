@@ -1,8 +1,13 @@
 import { RouterProvider } from 'react-router-dom';
 import { router } from './routes/router';
+import QueryClientProvider from './Providers/QueryClient';
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <QueryClientProvider>
+      <RouterProvider router={router} />;
+    </QueryClientProvider>
+  );
 }
 
 export default App;

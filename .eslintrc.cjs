@@ -12,6 +12,7 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   plugins: ['react', 'react-refresh', 'eslint-plugin-prettier'],
   rules: {
+    '@typescript-eslint/no-explicit-any': 'off',
     'comma-dangle': 'off',
     'import/extensions': 'off',
     'import/no-extraneous-dependencies': 'off',

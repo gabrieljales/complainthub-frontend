@@ -36,8 +36,9 @@ function ComplaintModal({
 
   useEffect(() => {
     if (initialData) {
-      setValue(ComplaintFormFieldsEnum.TITLE, initialData.title);
-      setValue(ComplaintFormFieldsEnum.DESCRIPTION, initialData.description);
+      Object.values(ComplaintFormFieldsEnum).forEach((formField) =>
+        setValue(formField, initialData[formField])
+      );
     }
   }, [initialData, setValue]);
 

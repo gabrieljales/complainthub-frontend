@@ -21,6 +21,7 @@ import {
 import ComplaintModal from '../../components/ComplaintModal/ComplaintModal';
 import Complaint from '../../models/Complaint';
 import { ComplaintCardStatusRecord } from './ComplaintScreen.types';
+import { complaintStatusLabels } from '../../constants/complaintStatusLabels';
 
 function ComplaintScreen() {
   const queryClient = useQueryClient();
@@ -83,9 +84,18 @@ function ComplaintScreen() {
 
     return complaints?.map((complaint) => {
       const statusRecord: ComplaintCardStatusRecord = {
-        pending: { status: 'Em resolução', statusColor: 'yellow.500' },
-        solved: { status: 'Resolvida', statusColor: 'green.500' },
-        unsolved: { status: 'Não resolvida', statusColor: 'red.500' },
+        pending: {
+          status: complaintStatusLabels.pending,
+          statusColor: 'yellow.500',
+        },
+        solved: {
+          status: complaintStatusLabels.solved,
+          statusColor: 'green.500',
+        },
+        unsolved: {
+          status: complaintStatusLabels.unsolved,
+          statusColor: 'red.500',
+        },
       };
 
       return (

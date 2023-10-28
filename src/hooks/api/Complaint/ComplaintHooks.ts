@@ -25,14 +25,14 @@ export const useCreateComplaint = () =>
     mutationKey: [COMPLAINT_KEYS.complaints],
   });
 
-export const useUpdateComplaint = (id?: string) =>
+export const useUpdateComplaint = () =>
   useMutation<Complaint, Error, UpdateComplaintRequest>({
     mutationFn: (payload) => updateComplaint(payload),
-    mutationKey: [COMPLAINT_KEYS.complaints, id],
+    mutationKey: [COMPLAINT_KEYS.complaints],
   });
 
-export const useDeleteComplaint = (id?: string) =>
+export const useDeleteComplaint = () =>
   useMutation<unknown, Error, string>({
-    mutationFn: () => deleteComplaint(id),
-    mutationKey: [COMPLAINT_KEYS.complaints, id],
+    mutationFn: (id) => deleteComplaint(id),
+    mutationKey: [COMPLAINT_KEYS.complaints],
   });

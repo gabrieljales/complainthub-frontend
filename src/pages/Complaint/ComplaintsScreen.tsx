@@ -6,10 +6,13 @@ import {
   Stack,
   Text,
   useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import CustomCard from '../../components/ComplaintCard/ComplaintCard';
 import {
+  COMPLAINT_KEYS,
   useCreateComplaint,
   useDeleteComplaint,
   useGetComplaints,
@@ -20,6 +23,8 @@ import Complaint from '../../models/Complaint';
 import { ComplaintCardStatusRecord } from './ComplaintScreen.types';
 
 function ComplaintScreen() {
+  const queryClient = useQueryClient();
+  const toast = useToast({ position: 'top' });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [selectedComplaint, setSelectedComplaint] = useState<
@@ -31,15 +36,38 @@ function ComplaintScreen() {
 
   const { mutate: onCreateComplaint } = useCreateComplaint();
 
-  const { mutate: onUpdateComplaint } = useUpdateComplaint(
-    selectedComplaint?.id
-  );
+  const { mutate: onUpdateComplaint } = useUpdateComplaint();
 
-  // TODO: Use hook
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { mutate: onDeleteComplaint } = useDeleteComplaint(
-    selectedComplaint?.id
-  );
+  const { mutate: onDeleteComplaint } = useDeleteComplaint();
+
+  const onComplaintCardDelete = (complaint: Complaint) => {
+    onDeleteComplaint(complaint.id, {
+      onError: () => {
+        toast({
+          duration: 5000,
+          status: 'error',
+          title: 'Ocorreu um erro durante a remoção.',
+        });
+      },
+      onSuccess: () => {
+        toast({
+          duration: 4000,
+          isClosable: true,
+          status: 'success',
+          title: 'Reclamação removida com sucesso.',
+        });
+
+        queryClient.invalidateQueries({
+          queryKey: [COMPLAINT_KEYS.complaints],
+        });
+      },
+    });
+  };
+
+  const onComplaintCardUpdate = (complaint: Complaint) => {
+    setSelectedComplaint(complaint);
+    onOpen();
+  };
 
   const renderContent = () => {
     if (isFetchingComplaints)
@@ -62,13 +90,10 @@ function ComplaintScreen() {
 
       return (
         <CustomCard
+          key={complaint.id}
           description={complaint.description}
-          // TODO: Add delete complaint
-          onDelete={() => {}}
-          onEdit={() => {
-            setSelectedComplaint(complaint);
-            onOpen();
-          }}
+          onDelete={() => onComplaintCardDelete(complaint)}
+          onEdit={() => onComplaintCardUpdate(complaint)}
           status={statusRecord[complaint.status].status}
           statusColor={statusRecord[complaint.status].statusColor}
           title={complaint.title}

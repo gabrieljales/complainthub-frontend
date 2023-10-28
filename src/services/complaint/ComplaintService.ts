@@ -1,6 +1,9 @@
 import { formatRequestUrl } from '../../helpers/api';
 import { ComplaintDTO } from '../../interfaces/api/models/Complaint';
-import { CreateComplaintRequest } from '../../interfaces/api/requests/Complaint';
+import {
+  CreateComplaintRequest,
+  UpdateComplaintRequest,
+} from '../../interfaces/api/requests/Complaint';
 import Complaint from '../../models/Complaint';
 import {
   performDelete,
@@ -31,12 +34,14 @@ export const ComplaintService = {
 
     return createdComplaint;
   },
-  updateComplaint: async (payload: Partial<Complaint>): Promise<Complaint> => {
+  updateComplaint: async (
+    payload: UpdateComplaintRequest
+  ): Promise<Complaint> => {
     const { data } = await performPatch<ComplaintDTO>(
       formatRequestUrl({
         baseUrl: urls.complaintsWithId,
         idKey: 'id',
-        idValue: payload.id || '',
+        idValue: payload?.id || '',
       })
     );
 
@@ -44,12 +49,12 @@ export const ComplaintService = {
 
     return updatedComplaint;
   },
-  deleteComplaints: async (id: string): Promise<unknown> => {
+  deleteComplaint: async (id?: string): Promise<unknown> => {
     const { data } = await performDelete(
       formatRequestUrl({
         baseUrl: urls.complaintsWithId,
         idKey: 'id',
-        idValue: id,
+        idValue: id || '0',
       })
     );
 

@@ -1,4 +1,5 @@
 import { ComplaintDTO } from '../interfaces/api/models/Complaint';
+import { ComplaintStatus } from '../types/global/ComplaintStatus';
 
 class Complaint {
   createdAt!: string;
@@ -7,7 +8,7 @@ class Complaint {
 
   id!: string;
 
-  status!: string;
+  status!: ComplaintStatus;
 
   title!: string;
 

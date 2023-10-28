@@ -31,6 +31,7 @@ module.exports = {
       { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
     ],
     'react/jsx-no-useless-fragment': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/react-in-jsx-scope': 'off',
     'prettier/prettier': 'error',
   },

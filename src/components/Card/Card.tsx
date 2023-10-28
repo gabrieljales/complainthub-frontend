@@ -28,7 +28,7 @@ function CustomCard({ description, title, status }: CustomCardProps) {
           <Flex width='fit-content'>
             {status && <Tag>{status}</Tag>}
             <IconButton
-              aria-label='edit-complaint'
+              aria-label='Editar reclamação'
               icon={<EditIcon />}
               variant='link'
             />

@@ -38,13 +38,18 @@ function ComplaintScreen() {
   >(undefined);
 
   const { data: complaints, isFetching: isFetchingComplaints } =
-    useGetComplaints();
+    useGetComplaints(loggedUser?.type);
 
-  const { mutate: onCreateComplaint } = useCreateComplaint();
+  const { mutate: onCreateComplaint, isPending: isCreateComplaintPending } =
+    useCreateComplaint();
 
-  const { mutate: onUpdateComplaint } = useUpdateComplaint();
+  const { mutate: onUpdateComplaint, isPending: isUpdateComplaintPending } =
+    useUpdateComplaint();
 
   const { mutate: onDeleteComplaint } = useDeleteComplaint();
+
+  const isSalveButtonPending =
+    isCreateComplaintPending || isUpdateComplaintPending;
 
   const onComplaintCardDelete = (complaint: Complaint) => {
     onDeleteComplaint(complaint.id, {
@@ -121,6 +126,7 @@ function ComplaintScreen() {
     return (
       <ComplaintModal
         isOpen={isOpen}
+        isSaveButtonLoading={isSalveButtonPending}
         initialData={selectedComplaint}
         onClose={() => {
           onClose();

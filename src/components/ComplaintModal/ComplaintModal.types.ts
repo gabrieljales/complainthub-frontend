@@ -7,6 +7,7 @@ import {
 
 export interface ComplaintModalProps {
   initialData?: Complaint;
+  isSaveButtonLoading?: boolean;
   isOpen: boolean;
   onClose: () => void;
   onCreateComplaint?: UseMutateFunction<

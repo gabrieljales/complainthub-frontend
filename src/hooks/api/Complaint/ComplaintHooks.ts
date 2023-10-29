@@ -5,6 +5,7 @@ import {
   CreateComplaintRequest,
   UpdateComplaintRequest,
 } from '../../../interfaces/api/requests/Complaint';
+import { UserRole } from '../../../types/global/UserRole';
 
 const { fetchComplaints, createComplaint, updateComplaint, deleteComplaint } =
   ComplaintService;
@@ -13,9 +14,9 @@ export const COMPLAINT_KEYS = {
   complaints: 'complaints',
 };
 
-export const useGetComplaints = () =>
+export const useGetComplaints = (userRole?: UserRole) =>
   useQuery<Complaint[]>({
-    queryFn: fetchComplaints,
+    queryFn: () => fetchComplaints(userRole),
     queryKey: [COMPLAINT_KEYS.complaints],
   });
 

@@ -5,6 +5,7 @@ import {
   UpdateComplaintRequest,
 } from '../../interfaces/api/requests/Complaint';
 import Complaint from '../../models/Complaint';
+import { UserRole } from '../../types/global/UserRole';
 import {
   performDelete,
   performGet,
@@ -15,11 +16,15 @@ import {
 const urls = {
   complaints: '/complaints',
   complaintsWithId: '/complaints/:id',
+  userComplaints: '/users/complaints',
 };
 
 export const ComplaintService = {
-  fetchComplaints: async (): Promise<Complaint[]> => {
-    const { data } = await performGet<ComplaintDTO[]>(urls.complaints);
+  fetchComplaints: async (userRole?: UserRole): Promise<Complaint[]> => {
+    const complaintsUrl =
+      userRole === 'admin' ? urls.complaints : urls.userComplaints;
+
+    const { data } = await performGet<ComplaintDTO[]>(complaintsUrl);
 
     const complaints = data.map((complaint) => Complaint.create(complaint));
 

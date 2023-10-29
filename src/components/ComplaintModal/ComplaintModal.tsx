@@ -17,15 +17,18 @@ import { ComplaintFormFields } from './ComplaintForm/ComplaintForm.types';
 import ComplaintForm from './ComplaintForm/ComplaintForm';
 import { ComplaintFormFieldsEnum } from './ComplaintForm/ComplaintForm.enum';
 import { COMPLAINT_KEYS } from '../../hooks/api/Complaint/ComplaintHooks';
+import { useAuth } from '../../context/Auth';
 
 function ComplaintModal({
   initialData,
   isOpen,
+  isSaveButtonLoading,
   onClose,
   onCreateComplaint,
   onUpdateComplaint,
 }: ComplaintModalProps) {
   const queryClient = useQueryClient();
+  const { loggedUser } = useAuth();
   const toast = useToast({ position: 'top' });
   const methods = useForm<ComplaintFormFields>();
   const {
@@ -33,6 +36,8 @@ function ComplaintModal({
     formState: { isValid },
     setValue,
   } = methods;
+
+  const hasAdminRole = loggedUser?.type === 'admin';
 
   useEffect(() => {
     if (initialData) {
@@ -44,27 +49,30 @@ function ComplaintModal({
 
   const onSubmit = (data: ComplaintFormFields) => {
     if (initialData) {
-      onUpdateComplaint?.(data, {
-        onError: () => {
-          toast({
-            duration: 5000,
-            status: 'error',
-            title: 'Ocorreu um erro durante a atualização.',
-          });
-        },
-        onSuccess: () => {
-          toast({
-            duration: 4000,
-            isClosable: true,
-            status: 'success',
-            title: 'Reclamação atualizada com sucesso.',
-          });
+      onUpdateComplaint?.(
+        { id: initialData.id, ...data },
+        {
+          onError: () => {
+            toast({
+              duration: 5000,
+              status: 'error',
+              title: 'Ocorreu um erro durante a atualização.',
+            });
+          },
+          onSuccess: () => {
+            toast({
+              duration: 4000,
+              isClosable: true,
+              status: 'success',
+              title: 'Reclamação atualizada com sucesso.',
+            });
 
-          queryClient.invalidateQueries({
-            queryKey: [COMPLAINT_KEYS.complaints, initialData.id],
-          });
-        },
-      });
+            queryClient.invalidateQueries({
+              queryKey: [COMPLAINT_KEYS.complaints, initialData.id],
+            });
+          },
+        }
+      );
       return;
     }
 
@@ -97,11 +105,17 @@ function ComplaintModal({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ModalBody pb={6}>
-          <ComplaintForm isDisabled initialData={initialData} />
+          <ComplaintForm isDisabled={hasAdminRole} initialData={initialData} />
         </ModalBody>
 
         <ModalFooter>
-          <Button type='submit' colorScheme='blue' isDisabled={!isValid} mr={3}>
+          <Button
+            colorScheme='blue'
+            isDisabled={!isValid}
+            isLoading={isSaveButtonLoading}
+            mr={3}
+            type='submit'
+          >
             Salvar
           </Button>
           <Button onClick={onClose}>Cancelar</Button>

@@ -26,9 +26,9 @@ export const useCreateComplaint = () =>
     mutationKey: [COMPLAINT_KEYS.complaints],
   });
 
-export const useUpdateComplaint = () =>
+export const useUpdateComplaint = (userRole?: UserRole) =>
   useMutation<Complaint, Error, UpdateComplaintRequest>({
-    mutationFn: (payload) => updateComplaint(payload),
+    mutationFn: (payload) => updateComplaint(payload, userRole),
     mutationKey: [COMPLAINT_KEYS.complaints],
   });
 

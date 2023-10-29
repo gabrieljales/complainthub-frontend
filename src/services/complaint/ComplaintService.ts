@@ -40,9 +40,13 @@ export const ComplaintService = {
     return createdComplaint;
   },
   updateComplaint: async (
-    payload: UpdateComplaintRequest
+    payload: UpdateComplaintRequest,
+    userRole?: UserRole
   ): Promise<Complaint> => {
     const { id: complaintId, ...complaintPayload } = payload;
+    const { description, status, title } = complaintPayload;
+    const formattedPayload =
+      userRole === 'admin' ? { status } : { description, title };
 
     const { data } = await performPatch<ComplaintDTO>(
       formatRequestUrl({
@@ -50,7 +54,7 @@ export const ComplaintService = {
         idKey: 'id',
         idValue: complaintId || '',
       }),
-      complaintPayload
+      formattedPayload
     );
 
     const updatedComplaint = Complaint.create(data);

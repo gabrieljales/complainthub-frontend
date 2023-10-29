@@ -44,7 +44,7 @@ function ComplaintScreen() {
     useCreateComplaint();
 
   const { mutate: onUpdateComplaint, isPending: isUpdateComplaintPending } =
-    useUpdateComplaint();
+    useUpdateComplaint(loggedUser?.type);
 
   const { mutate: onDeleteComplaint } = useDeleteComplaint();
 

@@ -68,8 +68,10 @@ function ComplaintModal({
             });
 
             queryClient.invalidateQueries({
-              queryKey: [COMPLAINT_KEYS.complaints, initialData.id],
+              queryKey: [COMPLAINT_KEYS.complaints],
             });
+
+            onClose();
           },
         }
       );

@@ -22,11 +22,16 @@ import ComplaintModal from '../../components/ComplaintModal/ComplaintModal';
 import Complaint from '../../models/Complaint';
 import { ComplaintCardStatusRecord } from './ComplaintScreen.types';
 import { complaintStatusLabels } from '../../constants/complaintStatusLabels';
+import { useAuth } from '../../context/Auth';
 
 function ComplaintScreen() {
   const queryClient = useQueryClient();
   const toast = useToast({ position: 'top' });
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { loggedUser } = useAuth();
+
+  const hasClientRole = loggedUser?.type === 'client';
 
   const [selectedComplaint, setSelectedComplaint] = useState<
     Complaint | undefined
@@ -131,9 +136,11 @@ function ComplaintScreen() {
     <Stack width='full'>
       <Flex justify='space-between'>
         <Heading>Reclamações</Heading>
-        <Button colorScheme='blue' onClick={onOpen}>
-          Adicionar
-        </Button>
+        {hasClientRole && (
+          <Button colorScheme='blue' onClick={onOpen}>
+            Adicionar
+          </Button>
+        )}
       </Flex>
       <Flex wrap='wrap' gap='5' marginTop='10'>
         {renderContent()}

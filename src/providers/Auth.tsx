@@ -52,10 +52,10 @@ function AuthProvider({
     localStorage.setItem('token', JSON.stringify(token));
     axiosInstance.defaults.headers.Authorization = `Bearer ${token}`;
 
-    localStorage.setItem('user', JSON.stringify(user));
-
     if (token) {
       const { type }: JwtPayload & { type: UserRole } = jwtDecode(token);
+
+      localStorage.setItem('user', JSON.stringify({ ...user, type }));
 
       setAuthenticated(true);
       setLoggedUser({

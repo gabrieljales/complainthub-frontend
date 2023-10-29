@@ -13,9 +13,19 @@ import { useFormContext } from 'react-hook-form';
 import { ComplaintFormFields, ComplaintFormProps } from './ComplaintForm.types';
 import { ComplaintFormFieldsEnum } from './ComplaintForm.enum';
 import { complaintStatusLabels } from '../../../constants/complaintStatusLabels';
+import ErrorMessage from '../../Form/ErrorMessage/ErrorMessage';
+import { useAuth } from '../../../context/Auth';
 
 function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
-  const { register, getValues } = useFormContext<ComplaintFormFields>();
+  const {
+    register,
+    getValues,
+    formState: { errors },
+  } = useFormContext<ComplaintFormFields>();
+
+  const { loggedUser } = useAuth();
+
+  const hasAdminRole = loggedUser?.type === 'admin';
 
   if (initialData)
     return (
@@ -59,19 +69,21 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
           </Editable>
         </FormControl>
 
-        <FormControl mt={4}>
-          <FormLabel fontSize='lg'>Status</FormLabel>
-          <Select
-            {...register(ComplaintFormFieldsEnum.STATUS, {
-              required: { value: true, message: 'Este campo é obrigatório' },
-            })}
-            placeholder='Selecione...'
-          >
-            {Object.entries(complaintStatusLabels).map(([status, label]) => (
-              <option value={status}>{label}</option>
-            ))}
-          </Select>
-        </FormControl>
+        {hasAdminRole && (
+          <FormControl mt={4}>
+            <FormLabel fontSize='lg'>Status</FormLabel>
+            <Select
+              {...register(ComplaintFormFieldsEnum.STATUS, {
+                required: { value: true, message: 'Este campo é obrigatório' },
+              })}
+              placeholder='Selecione...'
+            >
+              {Object.entries(complaintStatusLabels).map(([status, label]) => (
+                <option value={status}>{label}</option>
+              ))}
+            </Select>
+          </FormControl>
+        )}
       </>
     );
 
@@ -83,9 +95,11 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
           {...register(ComplaintFormFieldsEnum.TITLE, {
             required: { value: true, message: 'Este campo é obrigatório' },
           })}
+          isInvalid={!!errors.title}
           maxLength={100}
           placeholder='Ex.: Celular quebrado'
         />
+        {errors.title && <ErrorMessage message={errors.title.message} />}
       </FormControl>
 
       <FormControl mt={4}>
@@ -94,12 +108,14 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
           {...register(ComplaintFormFieldsEnum.DESCRIPTION, {
             required: { value: true, message: 'Este campo é obrigatório' },
           })}
+          isInvalid={!!errors.description}
           maxH='xs'
           placeholder='Ex.: A tela do celular está quebrada'
           resize='vertical'
           fontSize='md'
           maxLength={1000}
         />
+        {errors.title && <ErrorMessage message={errors.title.message} />}
       </FormControl>
     </>
   );

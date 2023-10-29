@@ -5,6 +5,8 @@ import ComplaintScreen from '../pages/Complaint/ComplaintsScreen';
 import LoginScreen from '../pages/Auth/LoginScreen';
 import ProtectedRoute from './ProtectedRoute';
 import NotFoundPage from './NotFound';
+import RegisterScreen from '../pages/Users/RegisterScreen';
+import UnprotectedRoute from './UnprotectedRoute';
 
 export const router = createBrowserRouter([
   {
@@ -15,9 +17,17 @@ export const router = createBrowserRouter([
       {
         path: '/login',
         element: (
-          <ProtectedRoute>
+          <UnprotectedRoute>
             <LoginScreen />
-          </ProtectedRoute>
+          </UnprotectedRoute>
+        ),
+      },
+      {
+        path: '/register',
+        element: (
+          <UnprotectedRoute>
+            <RegisterScreen />
+          </UnprotectedRoute>
         ),
       },
       {
@@ -28,14 +38,14 @@ export const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
     ],
   },
   {
     path: '*',
-    element: (
-      <ProtectedRoute>
-        <NotFoundPage />
-      </ProtectedRoute>
-    ),
+    element: <NotFoundPage />,
   },
 ]);

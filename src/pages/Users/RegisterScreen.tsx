@@ -1,32 +1,37 @@
 import { Button, Flex, Stack, useToast } from '@chakra-ui/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { NavLink, useNavigate } from 'react-router-dom';
-import LoginForm from './LoginForm/LoginForm';
-import { LoginFormFields } from './LoginForm/LoginForm.types';
-import { useAuth } from '../../context/Auth';
+import RegisterForm from './RegisterForm/RegisterForm';
+import { RegisterFormFields } from './RegisterForm/RegisterForm.types';
+import { useRegisterUser } from '../../hooks/api/User/UserHooks';
 
-function LoginScreen() {
+function RegisterScreen() {
   const navigate = useNavigate();
   const toast = useToast({ position: 'top' });
-  const methods = useForm<LoginFormFields>();
+  const methods = useForm<RegisterFormFields>();
 
   const { handleSubmit } = methods;
 
-  const { useLogin, handleLogin } = useAuth();
+  const { mutate: onRegister, isPending: isRegisterPending } =
+    useRegisterUser();
 
-  const { mutate: onLogin, isPending: isLoginPending } = useLogin(handleLogin);
-
-  const onSubmit = (data: LoginFormFields) => {
-    onLogin(data, {
+  const onSubmit = (data: RegisterFormFields) => {
+    onRegister(data, {
       onError: () => {
         toast({
           duration: 5000,
           status: 'error',
-          title: 'Ocorreu um erro na autenticação.',
+          title: 'Ocorreu um erro no registro.',
         });
       },
       onSuccess: () => {
-        navigate('/complaints');
+        toast({
+          duration: 4000,
+          isClosable: true,
+          status: 'success',
+          title: 'Usuário cadastrado com sucesso.',
+        });
+        navigate('/login');
       },
     });
   };
@@ -35,15 +40,15 @@ function LoginScreen() {
     <FormProvider {...methods}>
       <Stack w='full'>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <LoginForm />
+          <RegisterForm />
           <Button
             colorScheme='blue'
-            isLoading={isLoginPending}
+            isLoading={isRegisterPending}
             marginTop='5'
             type='submit'
             width='full'
           >
-            Entrar
+            Registrar
           </Button>
         </form>
       </Stack>
@@ -53,15 +58,12 @@ function LoginScreen() {
     <Flex width='full' justifyContent='center' alignItems='center'>
       <Stack w='xs'>
         <Flex>{renderContent()}</Flex>
-        <Button as={NavLink} to='/' variant='link' width='fit-content'>
-          Esqueci a senha
-        </Button>
-        <Button as={NavLink} to='/register' variant='link' width='fit-content'>
-          Ainda não tem conta?
+        <Button as={NavLink} to='/login' variant='link' width='fit-content'>
+          Já possui uma conta?
         </Button>
       </Stack>
     </Flex>
   );
 }
 
-export default LoginScreen;
+export default RegisterScreen;

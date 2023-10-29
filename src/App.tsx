@@ -1,4 +1,5 @@
 import { RouterProvider } from 'react-router-dom';
+import { Flex, Spinner } from '@chakra-ui/react';
 import { router } from './routes/router';
 import QueryClientProvider from './providers/QueryClient';
 
@@ -10,7 +11,20 @@ import QueryClientProvider from './providers/QueryClient';
 function App() {
   return (
     <QueryClientProvider>
-      <RouterProvider router={router} />;
+      <RouterProvider
+        fallbackElement={
+          <Flex
+            alignItems='center'
+            height='full'
+            justifyContent='center'
+            width='full'
+          >
+            <Spinner />
+          </Flex>
+        }
+        router={router}
+      />
+      ;
     </QueryClientProvider>
   );
 }

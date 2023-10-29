@@ -1,19 +1,14 @@
 import { ReactElement, useState, useEffect } from 'react';
-
-import { useMutation } from '@tanstack/react-query';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
-import { LoginDTO, AuthUserWithRole } from '../interfaces/api/models/Auth';
+import { AuthUserWithRole } from '../interfaces/api/models/Auth';
 import { axiosInstance } from '../services/api/axiosInstance';
 import AuthContext from '../context/Auth';
 import { loginRequest } from '../interfaces/api/requests/Auth';
-import { AuthService } from '../services/auth/AuthService';
 import { UserRole } from '../types/global/UserRole';
+import { AuthService } from '../services/auth/AuthService';
+import { useLogin } from '../hooks/api/Auth/AuthHooks';
 
 const { login } = AuthService;
-
-const AUTH_KEYS = {
-  login: 'login',
-};
 
 function AuthProvider({
   children,
@@ -71,18 +66,13 @@ function AuthProvider({
     }
   }
 
-  function useLogin() {
-    return useMutation<LoginDTO, Error, loginRequest>({
-      mutationFn: (payload) => login(payload),
-      mutationKey: [AUTH_KEYS.login],
-    });
-  }
-
   function handleLogout() {
     setAuthenticated(false);
     setLoggedUser(null);
+
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+
     delete axiosInstance.defaults.headers.Authorization;
   }
 

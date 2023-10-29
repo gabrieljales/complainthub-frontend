@@ -30,7 +30,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
             <EditablePreview />
             <EditableInput
               {...register(ComplaintFormFieldsEnum.TITLE, {
-                required: true,
+                required: { value: true, message: 'Este campo é obrigatório' },
               })}
               maxLength={100}
               placeholder='Ex.: Celular quebrado'
@@ -48,7 +48,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
             <EditablePreview />
             <EditableTextarea
               {...register(ComplaintFormFieldsEnum.DESCRIPTION, {
-                required: true,
+                required: { value: true, message: 'Este campo é obrigatório' },
               })}
               maxH='xs'
               placeholder='Ex.: A tela do celular está quebrada'
@@ -63,7 +63,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
           <FormLabel fontSize='lg'>Status</FormLabel>
           <Select
             {...register(ComplaintFormFieldsEnum.STATUS, {
-              required: true,
+              required: { value: true, message: 'Este campo é obrigatório' },
             })}
             placeholder='Selecione...'
           >
@@ -81,7 +81,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
         <FormLabel fontSize='lg'>Título</FormLabel>
         <Input
           {...register(ComplaintFormFieldsEnum.TITLE, {
-            required: true,
+            required: { value: true, message: 'Este campo é obrigatório' },
           })}
           maxLength={100}
           placeholder='Ex.: Celular quebrado'
@@ -92,7 +92,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
         <FormLabel fontSize='lg'>Descrição</FormLabel>
         <Textarea
           {...register(ComplaintFormFieldsEnum.DESCRIPTION, {
-            required: true,
+            required: { value: true, message: 'Este campo é obrigatório' },
           })}
           maxH='xs'
           placeholder='Ex.: A tela do celular está quebrada'

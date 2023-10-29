@@ -21,6 +21,7 @@ module.exports = {
     'import/react-in-jsx-scope': 'off',
     'jsx-quotes': ['error', 'prefer-single'],
     'no-shadow': 'off',
+    'no-unsafe-optional-chaining': 'off',
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },

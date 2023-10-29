@@ -6,6 +6,7 @@ export interface UserDTO {
   id: string;
   last_name: string;
   name: string;
+  password: string;
   type: UserRole;
   updated_at: string;
 }

@@ -12,6 +12,8 @@ class User {
 
   name!: string;
 
+  password!: string;
+
   type!: UserRole;
 
   updatedAt!: string;
@@ -27,6 +29,7 @@ class User {
       id: data?.id,
       lastName: data?.last_name,
       name: data?.name,
+      password: data.password,
       type: data?.type,
       updatedAt: data?.updated_at,
     });

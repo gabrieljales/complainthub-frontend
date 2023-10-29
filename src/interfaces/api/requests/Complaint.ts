@@ -1,11 +1,12 @@
 import { ComplaintStatus } from '../../../types/global/ComplaintStatus';
 
 interface abstractComplaintRecord {
-  id: string;
-  title: string;
   description: string;
+  id: string;
   status: ComplaintStatus;
+  title: string;
 }
+
 export interface CreateComplaintRequest
   extends Omit<abstractComplaintRecord, 'id'> {}
 

@@ -5,6 +5,11 @@ import LoginForm from './LoginForm/LoginForm';
 import { LoginFormFields } from './LoginForm/LoginForm.types';
 import { useAuth } from '../../context/Auth';
 
+/**
+ * Componente LoginScreen.
+ *
+ * Este componente renderiza uma tela de login com um formulário de login e botões para esquecer a senha e criar uma conta.
+ */
 function LoginScreen() {
   const navigate = useNavigate();
   const toast = useToast({ position: 'top' });

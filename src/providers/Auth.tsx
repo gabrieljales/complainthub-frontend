@@ -10,6 +10,13 @@ import { useLogin } from '../hooks/api/Auth/AuthHooks';
 
 const { login } = AuthService;
 
+/**
+ * Componente AuthProvider.
+ *
+ * Este componente fornece um contexto de autenticação para seus filhos. Ele mantém o estado do usuário logado e fornece funções para lidar com o login e o logout.
+ *
+ * @param {ReactElement | ReactElement[]} children - Os componentes filhos.
+ */
 function AuthProvider({
   children,
 }: {

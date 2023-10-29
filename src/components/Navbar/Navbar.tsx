@@ -2,6 +2,11 @@ import { Avatar, Button, Flex, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/Auth';
 
+/**
+ * Componente Navbar.
+ *
+ * Este componente renderiza uma barra de navegação com o nome do usuário logado e um botão de logout.
+ */
 function Navbar() {
   const { handleLogout, loggedUser } = useAuth();
   const navigate = useNavigate();

@@ -1,6 +1,9 @@
 import { ComplaintDTO } from '../interfaces/api/models/Complaint';
 import { ComplaintStatus } from '../types/global/ComplaintStatus';
 
+/**
+ * Classe que representa um objeto de reclamação.
+ */
 class Complaint {
   createdAt!: string;
 
@@ -18,6 +21,12 @@ class Complaint {
     Object.assign(this, { ...data });
   }
 
+  /**
+   * Método estático para criar uma nova instância de reclamação.
+   *
+   * @param {ComplaintDTO} data - Os dados da reclamação.
+   * @returns {Complaint} Uma nova instância de reclamação.
+   */
   static create(data: ComplaintDTO) {
     return new Complaint({
       createdAt: data?.created_at,

@@ -8,6 +8,11 @@ import NotFoundPage from './NotFound';
 import RegisterScreen from '../pages/Users/RegisterScreen';
 import UnprotectedRoute from './UnprotectedRoute';
 
+/**
+ * Cria um roteador do navegador com as rotas especificadas.
+ *
+ * @type {BrowserRouter}
+ */
 export const router = createBrowserRouter([
   {
     path: '/',

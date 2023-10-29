@@ -1,5 +1,10 @@
 import { extendTheme } from '@chakra-ui/react';
 
+/**
+ * Define um tema personalizado para a aplicação.
+ *
+ * @type {Theme}
+ */
 const customTheme = extendTheme({
   fontSizes: {
     xs: '8px',

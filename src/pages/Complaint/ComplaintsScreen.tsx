@@ -16,6 +16,7 @@ import {
   useCreateComplaint,
   useDeleteComplaint,
   useGetComplaints,
+  useGetUserComplaints,
   useUpdateComplaint,
 } from '../../hooks/api/Complaint/ComplaintHooks';
 import ComplaintModal from '../../components/ComplaintModal/ComplaintModal';
@@ -39,6 +40,9 @@ function ComplaintScreen() {
 
   const { data: complaints, isFetching: isFetchingComplaints } =
     useGetComplaints(loggedUser?.type);
+
+  const { data: userComplaints, isFetching: isFetchingUserComplaints } =
+    useGetUserComplaints(loggedUser?.type);
 
   const { mutate: onCreateComplaint, isPending: isCreateComplaintPending } =
     useCreateComplaint();
@@ -80,19 +84,24 @@ function ComplaintScreen() {
     onOpen();
   };
 
+  const isFetchingComplaintsList =
+    isFetchingComplaints || isFetchingUserComplaints;
+
+  const complaintsList = hasClientRole ? userComplaints : complaints;
+
   const renderContent = () => {
-    if (isFetchingComplaints)
+    if (isFetchingComplaintsList)
       return (
         <Flex width='full' justifyContent='center'>
           <Spinner />
         </Flex>
       );
 
-    if (!complaints?.length) {
+    if (!complaintsList?.length) {
       return <Text>Nenhum item encontrado.</Text>;
     }
 
-    return complaints?.map((complaint) => {
+    return complaintsList?.map((complaint) => {
       const statusRecord: ComplaintCardStatusRecord = {
         pending: {
           status: complaintStatusLabels.pending,

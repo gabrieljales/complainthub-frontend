@@ -7,8 +7,13 @@ import {
 } from '../../../interfaces/api/requests/Complaint';
 import { UserRole } from '../../../types/global/UserRole';
 
-const { fetchComplaints, createComplaint, updateComplaint, deleteComplaint } =
-  ComplaintService;
+const {
+  createComplaint,
+  deleteComplaint,
+  fetchComplaints,
+  fetchUserComplaints,
+  updateComplaint,
+} = ComplaintService;
 
 export const COMPLAINT_KEYS = {
   complaints: 'complaints',
@@ -16,8 +21,16 @@ export const COMPLAINT_KEYS = {
 
 export const useGetComplaints = (userRole?: UserRole) =>
   useQuery<Complaint[]>({
-    queryFn: () => fetchComplaints(userRole),
+    queryFn: () => fetchComplaints(),
     queryKey: [COMPLAINT_KEYS.complaints],
+    enabled: !!userRole && userRole === 'manager',
+  });
+
+export const useGetUserComplaints = (userRole?: UserRole) =>
+  useQuery<Complaint[]>({
+    queryFn: () => fetchUserComplaints(),
+    queryKey: [COMPLAINT_KEYS.complaints],
+    enabled: !!userRole && userRole === 'client',
   });
 
 export const useCreateComplaint = () =>

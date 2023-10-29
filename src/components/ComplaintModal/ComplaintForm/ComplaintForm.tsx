@@ -25,7 +25,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
 
   const { loggedUser } = useAuth();
 
-  const hasAdminRole = loggedUser?.type === 'admin';
+  const hasManagerRole = loggedUser?.type === 'manager';
 
   if (initialData)
     return (
@@ -69,7 +69,7 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
           </Editable>
         </FormControl>
 
-        {hasAdminRole && (
+        {hasManagerRole && (
           <FormControl mt={4}>
             <FormLabel fontSize='lg'>Status</FormLabel>
             <Select
@@ -79,7 +79,9 @@ function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
               placeholder='Selecione...'
             >
               {Object.entries(complaintStatusLabels).map(([status, label]) => (
-                <option value={status}>{label}</option>
+                <option key={status} value={status}>
+                  {label}
+                </option>
               ))}
             </Select>
           </FormControl>

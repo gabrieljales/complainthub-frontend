@@ -20,11 +20,15 @@ const urls = {
 };
 
 export const ComplaintService = {
-  fetchComplaints: async (userRole?: UserRole): Promise<Complaint[]> => {
-    const complaintsUrl =
-      userRole === 'admin' ? urls.complaints : urls.userComplaints;
+  fetchComplaints: async (): Promise<Complaint[]> => {
+    const { data } = await performGet<ComplaintDTO[]>(urls.complaints);
 
-    const { data } = await performGet<ComplaintDTO[]>(complaintsUrl);
+    const complaints = data.map((complaint) => Complaint.create(complaint));
+
+    return complaints;
+  },
+  fetchUserComplaints: async (): Promise<Complaint[]> => {
+    const { data } = await performGet<ComplaintDTO[]>(urls.userComplaints);
 
     const complaints = data.map((complaint) => Complaint.create(complaint));
 
@@ -46,7 +50,7 @@ export const ComplaintService = {
     const { id: complaintId, ...complaintPayload } = payload;
     const { description, status, title } = complaintPayload;
     const formattedPayload =
-      userRole === 'admin' ? { status } : { description, title };
+      userRole === 'manager' ? { status } : { description, title };
 
     const { data } = await performPatch<ComplaintDTO>(
       formatRequestUrl({

@@ -37,7 +37,7 @@ function ComplaintModal({
     setValue,
   } = methods;
 
-  const hasAdminRole = loggedUser?.type === 'admin';
+  const hasManagerRole = loggedUser?.type === 'manager';
 
   useEffect(() => {
     if (initialData) {
@@ -107,7 +107,10 @@ function ComplaintModal({
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <ModalBody pb={6}>
-          <ComplaintForm isDisabled={hasAdminRole} initialData={initialData} />
+          <ComplaintForm
+            isDisabled={hasManagerRole}
+            initialData={initialData}
+          />
         </ModalBody>
 
         <ModalFooter>

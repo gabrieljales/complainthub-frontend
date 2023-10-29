@@ -16,6 +16,15 @@ import { complaintStatusLabels } from '../../../constants/complaintStatusLabels'
 import ErrorMessage from '../../Form/ErrorMessage/ErrorMessage';
 import { useAuth } from '../../../context/Auth';
 
+/**
+ * Componente ComplaintForm.
+ *
+ * Este componente renderiza um formulário para criar ou atualizar uma reclamação.
+ *
+ * @param {ComplaintFormProps} props As propriedades do componente.
+ * @param {boolean} [props.isDisabled] Se o formulário está desabilitado.
+ * @param {Complaint} [props.initialData] Os dados iniciais da reclamação.
+ */
 function ComplaintForm({ isDisabled, initialData }: ComplaintFormProps) {
   const {
     register,

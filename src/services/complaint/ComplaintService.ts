@@ -19,6 +19,17 @@ const urls = {
   userComplaints: '/users/complaints',
 };
 
+/**
+ * Serviço de reclamações.
+ *
+ * @typedef {Object} ComplaintService
+ *
+ * @property {Function} fetchComplaints - Função para buscar todas as reclamações.
+ * @property {Function} fetchUserComplaints - Função para buscar as reclamações de um usuário.
+ * @property {Function} createComplaint - Função para criar uma nova reclamação.
+ * @property {Function} updateComplaint - Função para atualizar uma reclamação existente.
+ * @property {Function} deleteComplaint - Função para deletar uma reclamação.
+ */
 export const ComplaintService = {
   fetchComplaints: async (): Promise<Complaint[]> => {
     const { data } = await performGet<ComplaintDTO[]>(urls.complaints);

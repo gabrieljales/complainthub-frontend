@@ -6,6 +6,11 @@ import LoginScreen from '../pages/Auth/LoginScreen';
 import ProtectedRoute from './ProtectedRoute';
 import NotFoundPage from './NotFound';
 
+/**
+ * Cria um roteador do navegador com as rotas especificadas.
+ *
+ * @type {BrowserRouter}
+ */
 export const router = createBrowserRouter([
   {
     path: '/',

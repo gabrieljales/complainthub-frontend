@@ -25,6 +25,11 @@ import { ComplaintCardStatusRecord } from './ComplaintScreen.types';
 import { complaintStatusLabels } from '../../constants/complaintStatusLabels';
 import { useAuth } from '../../context/Auth';
 
+/**
+ * Componente ComplaintScreen.
+ *
+ * Este componente renderiza uma tela de reclamações com uma lista de reclamações e um modal para criar ou atualizar uma reclamação.
+ */
 function ComplaintScreen() {
   const queryClient = useQueryClient();
   const toast = useToast({ position: 'top' });

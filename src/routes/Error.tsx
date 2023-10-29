@@ -1,5 +1,10 @@
 import { Heading, Stack, Text } from '@chakra-ui/react';
 
+/**
+ * Componente ErrorPage.
+ *
+ * Este componente renderiza uma página de erro.
+ */
 export default function ErrorPage() {
   return (
     <Stack align='center' justifyContent='center' p='10'>

@@ -4,6 +4,11 @@ import { LoginFormFields } from './LoginForm.types';
 import { LoginFormFieldsEnum } from './LoginForm.enum';
 import ErrorMessage from '../../../components/Form/ErrorMessage/ErrorMessage';
 
+/**
+ * Componente LoginForm.
+ *
+ * Este componente renderiza um formulário de login com campos para email e senha.
+ */
 function LoginForm() {
   const {
     register,

@@ -5,6 +5,13 @@ const AUTH_KEYS = {
   login: 'login',
 };
 
+/**
+ * Hook para lidar com o login.
+ *
+ * @param {(payload: loginRequest) => Promise<void>} handleLogin A função para lidar com o login.
+ *
+ * @returns {UseMutationResult<void, Error, loginRequest>} O resultado da mutação do React Query.
+ */
 export function useLogin(
   handleLogin: (payload: loginRequest) => Promise<void>
 ) {

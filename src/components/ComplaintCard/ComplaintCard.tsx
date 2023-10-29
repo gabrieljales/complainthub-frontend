@@ -11,6 +11,19 @@ import {
 import { EditIcon, DeleteIcon } from '@chakra-ui/icons';
 import { ComplaintCardProps } from './ComplaintCard.types';
 
+/**
+ * Componente CustomCard.
+ *
+ * Este componente renderiza um cartão com um título, descrição e botões de ação.
+ *
+ * @param {ComplaintCardProps} props As propriedades do componente.
+ * @param {string} props.description A descrição da reclamação.
+ * @param {() => void} [props.onDelete] A função a ser chamada quando o botão de exclusão é clicado.
+ * @param {() => void} [props.onEdit] A função a ser chamada quando o botão de edição é clicado.
+ * @param {string} [props.status] O status da reclamação.
+ * @param {TagProps['color']} [props.statusColor] A cor do status da reclamação.
+ * @param {string} props.title O título da reclamação.
+ */
 function CustomCard({
   description,
   onDelete,

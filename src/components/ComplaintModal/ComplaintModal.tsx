@@ -19,6 +19,19 @@ import { ComplaintFormFieldsEnum } from './ComplaintForm/ComplaintForm.enum';
 import { COMPLAINT_KEYS } from '../../hooks/api/Complaint/ComplaintHooks';
 import { useAuth } from '../../context/Auth';
 
+/**
+ * Componente ComplaintModal.
+ *
+ * Este componente renderiza um modal para criar ou atualizar uma reclamação.
+ *
+ * @param {ComplaintModalProps} props As propriedades do componente.
+ * @param {Complaint} [props.initialData] Os dados iniciais da reclamação.
+ * @param {boolean} props.isOpen Se o modal está aberto.
+ * @param {boolean} [props.isSaveButtonLoading] Se o botão de salvar está carregando.
+ * @param {() => void} props.onClose A função a ser chamada quando o modal é fechado.
+ * @param {(data: CreateComplaintRequest, options?: UseMutateFunction) => void} [props.onCreateComplaint] A função a ser chamada quando uma nova reclamação é criada.
+ * @param {(data: UpdateComplaintRequest, options?: UseMutateFunction) => void} [props.onUpdateComplaint] A função a ser chamada quando uma reclamação existente é atualizada.
+ */
 function ComplaintModal({
   initialData,
   isOpen,

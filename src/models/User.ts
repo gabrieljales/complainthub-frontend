@@ -1,6 +1,9 @@
 import { UserDTO } from '../interfaces/api/models/User';
 import { UserRole } from '../types/global/UserRole';
 
+/**
+ * Classe que representa um objeto de usuário.
+ */
 class User {
   createdAt!: string;
 
@@ -22,6 +25,12 @@ class User {
     Object.assign(this, { ...data });
   }
 
+  /**
+   * Método estático para criar uma nova instância de usuário.
+   *
+   * @param {UserDTO} data - Os dados do usuário.
+   * @returns {User} Uma nova instância de usuário.
+   */
   static create(data: UserDTO) {
     return new User({
       createdAt: data?.created_at,

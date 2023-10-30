@@ -150,7 +150,9 @@ Para executar este projeto, siga estas etapas:
 
 1. Instale as dependências do projeto com o comando `npm install`.
 2. Configure o arquivo .env, baseando-se no arquivo.env-example.
-3. Inicie o servidor de desenvolvimento com o comando `npm dev`.
+3. Inicie o servidor de desenvolvimento com o comando `npm run dev`.
+   1. Observação: A API precisa estar rodando para que o frontend funcione corretamente.
+4. Abra o link que aparece no terminal e adicione "/login" no final da url do seu navegador, para ir para a página de login do sistema.
 
 Os scripts disponíveis para este projeto são:
 
